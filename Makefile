@@ -21,6 +21,7 @@ help::
 	@echo "buildperl	-- Install Perl to $(PERLINSTALLTARGETDIR)"
 	@echo "locallib	-- Bootstrap a local-lib to $(LOCALDIR)"
 	@echo "buildexec	-- Create $(LOCALDIR)/exec script"
+	@echo "db_sandbox	-- create a local postgresql db"
 	@echo ""
 	@echo "==> Server Control"
 	@echo "server		-- Start the application in the foreground process"
@@ -73,7 +74,11 @@ installdevelop::
 setup:: buildperl locallib buildexec installdevelop generatelocalconfig
 
 server::
-	$(LOCALEXEC) perl -Ilib lib/RangersCCG/Web/Server.pm --server Gazelle 
+	$(LOCALEXEC) perl -Ilib lib/TodoMVC/Web/Server.pm --server Gazelle 
 
+db_sandbox::
+	$(LOCALEXEC) perl -Ilib -MTodoMVC -e 'TodoMVC->make_sandbox'
 
+db_prepare::
+	$(LOCALEXEC) perl -Ilib -MTodoMVC::Web -e 'Vota::Web->model("Migration")->prepare'
 

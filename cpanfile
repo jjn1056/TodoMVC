@@ -1,4 +1,5 @@
 requires 'Catalyst', '5.90112';
+requires 'Catalyst::ActionRole::Public', '0.009';
 requires 'Catalyst::ActionSignatures', '0.010';
 requires 'Catalyst::Model::DBIC::Schema', '0.65';
 requires 'Catalyst::Model::HTMLFormhandler', '0.007';
@@ -13,7 +14,8 @@ requires 'DBIx::Class', '0.082821';
 requires 'DBIx::Class::Helpers', '2.031000';
 requires 'DBIx::Class::Schema::Loader', '0.07045';
 requires 'DBIx::Class::TimeStamp', '0.14';
-requires 'DBD::SQLite', '1.46';
+requires 'DBIx::Class::Migration';
+requires 'DBD::SQLite';
 requires 'Plack', '1.0037';
 requires 'Type::Tiny', '1.000005';
 requires 'Gazelle', '0.41';
