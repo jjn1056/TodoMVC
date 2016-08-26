@@ -7,7 +7,7 @@ extends 'Catalyst::Controller';
 
 sub root :Chained(/root) PathPart('task') CaptureArgs(1) {
   my ($self, $c, $id) = @_;
-  my $model = $c->model("Schema::Game::Result") || die "$id not found";
+  my $model = $c->model("Schema::Todo::Result") || die "$id not found";
   $c->current_model_instance($model);
 }
 
@@ -15,8 +15,14 @@ sub root :Chained(/root) PathPart('task') CaptureArgs(1) {
     my ($self, $c) = @_;
     my $form = $c->model('Form::Task', $c->model);
     $form->is_valid ?
-      $c->redirect_to('/summary') :
+      $c->redirect_to($c->controller('Root')->action_for('view')) :
       die "Invalid Form!";
+  }
+
+  sub delete :POST Chained(root)  Args(0) {
+    my ($self, $c) = @_;
+    $c->model->delete;
+    $c->redirect_to($c->controller('Root')->action_for('view'));
   }
 
 __PACKAGE__->meta->make_immutable;

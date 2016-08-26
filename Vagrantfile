@@ -8,7 +8,7 @@ Vagrant.configure(2) do |config|
 
   # Specific to the virtualbox provider
   config.vm.provider "virtualbox" do |vb|
-    vb.memory = "1024"
+    vb.memory = "2048"
     vb.cpus = 4
   end
 

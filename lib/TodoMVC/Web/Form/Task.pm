@@ -19,7 +19,7 @@ sub update_model {
   my %values = %{$self->values};
   for($self->item) {
     $_->title($values{title});
-    $_->completed($values{completed} || 0);
+    $_->completed($values{completed} ? 1 : 0);
     $_->insert_or_update;
   }
 }
