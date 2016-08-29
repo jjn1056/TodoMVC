@@ -62,7 +62,6 @@ sub sets_href {
 }
 
 __PACKAGE__->config(
-  timestamp => scalar(localtime),
   returns_status => [HTTP_OK],
   auto_template_src => 1,
   directives => [
@@ -81,8 +80,8 @@ __PACKAGE__->config(
       ],
     },
     '.todo-count strong' => 'tasks.active.count',
-    '.filters a#={set}@class' => '"selected"',
     '.filters' => [
+      'a#={set}@class' => '"selected"',
       '#all@href' => 'sets_href.all',
       '#active@href' => 'sets_href.active',
       '#completed@href' => 'sets_href.completed',
