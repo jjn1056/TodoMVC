@@ -45,6 +45,9 @@ sub root :Chained(/) PathPart('') CaptureArgs(0) {  }
     $c->redirect_to($self->action_for('view'));
   }
 
-  sub not_found { ... }
+sub default :Default {
+  my ($self, $c, @args) = @_;
+  $c->view('NotFound')->http_404;
+}
 
 __PACKAGE__->meta->make_immutable;

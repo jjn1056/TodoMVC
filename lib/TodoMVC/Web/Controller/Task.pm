@@ -7,7 +7,8 @@ extends 'Catalyst::Controller';
 
 sub root :Chained(/root) PathPart('task') CaptureArgs(1) {
   my ($self, $c, $id) = @_;
-  my $model = $c->model("Schema::Todo::Result") || die "$id not found";
+  my $model = $c->model("Schema::Todo::Result") ||
+    $c->view('NotFound')->detach;
   $c->current_model_instance($model);
 }
 
@@ -16,7 +17,7 @@ sub root :Chained(/root) PathPart('task') CaptureArgs(1) {
     my $form = $c->model('Form::Task', $c->model);
     $form->is_valid ?
       $c->redirect_to($c->controller('Root')->action_for('view')) :
-      die "Invalid Form!";
+      $c->view('BadRequest');
   }
 
   sub delete :POST Chained(root)  Args(0) {

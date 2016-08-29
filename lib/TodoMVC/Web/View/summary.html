@@ -1,21 +1,19 @@
 <!DOCTYPE html>
+<?pure-overlay src='Views.Master' 
+  title=\'title'
+  body=\'body'?>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1" name="viewport">
   <title>Catalyst TodoMVC</title>
-  <link href="/static/base.css" rel="stylesheet">
-  <link href="/static/index.css" rel="stylesheet">
 </head>
 <body>
   <section class="todoapp">
-    <form method="POST">
     <header class="header">
       <h1>todos</h1>
-      <input name="title" autofocus="" class="new-todo" placeholder="What needs to be done?">
+      <form method="POST">
+        <input name="title" autofocus="" class="new-todo" placeholder="What needs to be done?">
+      </form>
     </header>
-    <input type="submit" style='display:none' >
-    </form>
     <!-- This section should be hidden by default and shown when there are todos -->
     <section class="main">
       <input class="toggle-all" type="checkbox"> <label for="toggle-all">Mark
@@ -35,12 +33,8 @@
         </li>
       </ul>
     </section>
-
-    <!-- This footer should hidden by default and shown when there are todos -->
     <footer class="footer">
-      <!-- This should be `0 items left` by default -->
       <span class="todo-count"><strong>0</strong> item left</span> 
-      <!-- Remove this if you don't implement routing -->
       <ul class="filters">
         <li>
           <a class="all" href="?q=all">All</a>
