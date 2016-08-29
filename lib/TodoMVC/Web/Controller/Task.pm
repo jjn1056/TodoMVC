@@ -7,7 +7,7 @@ extends 'Catalyst::Controller';
 
 sub root :Chained(/root) PathPart('task') CaptureArgs(1) {
   my ($self, $c, $id) = @_;
-  my $model = $c->model("Schema::Todo::Result") ||
+  my $model = $c->model("Schema::Todo")->find($id) ||
     $c->view('NotFound')->detach;
   $c->current_model_instance($model);
 }
