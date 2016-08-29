@@ -15,20 +15,14 @@ __PACKAGE__->config(
   directives => [
     'ul.todo-list li' => {
       '.<-tasks' => [
+        '.@class' => 'completed | cond("completed", undef)',
+        '.destroy@formaction+' => '={id}/delete',
         '.@id+' => 'id',
-        '.@class' => sub {
-          my ($i, $dom, $data) = @_;
-          my $status = $i->data_at_path($data, 'completed') ? 'completed' : undef;
-        },
-        'label' => 'title',
         'label@data-task' => 'id',
-        'input[name="title"]@value' => 'title',
-        'input[name="completed"]@checked' => sub {
-          my ($i, $dom, $data) = @_;
-          return $i->data_at_path($data, 'completed') ? 'on' : undef;
-        },
         'form@action+' => 'id',
-        '.destroy@formaction+' => '={id}/delete ',
+        'label' => 'title',
+        'input[name="title"]@value' => 'title',
+        'input[name="completed"]@checked' => 'completed | cond("on",undef)',
       ],
     },
     '.todo-count strong' => 'tasks.active.count',
