@@ -24,7 +24,7 @@ sub root :Chained(/) PathPart('') CaptureArgs(0) {  }
     $c->view('Summary', tasks => $model, set => $set);
   }
     
-    sub view :GET Chained('summary') PathPart('') Args(0) {
+    sub view :GET Chained('summary') PathPart('') Args(0) Tag(view_todos) {
       my ($self, $c) = @_;
       $c->view('Summary')->http_ok;
     }

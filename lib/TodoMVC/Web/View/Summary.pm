@@ -2,53 +2,12 @@ package  TodoMVC::Web::View::Summary;
  
 use Moose;
 use HTTP::Status qw(:constants);
+use Catalyst::View::Template::Pure::Helpers (':All');
  
 extends 'Catalyst::View::Template::Pure';
 
 has 'set' => (is=>'ro', required=>1);
 has 'tasks' => (is=>'ro', required=>1);
-
-sub delete_href {
-  my ($self) = @_;
-  return sub {
-    my ($pure, $dom, $data) = @_;
-    return $self->ctx->uri_for(
-      $self->ctx->controller('Task')->action_for('delete'),
-      [$pure->data_at_path($data,'id')]
-    );
-  };
-}
- 
-sub update_href {
-  my ($self) = @_;
-  return sub {
-    my ($pure, $dom, $data) = @_;
-    return $self->ctx->uri_for(
-      $self->ctx->controller('Task')->action_for('update'),
-      [$pure->data_at_path($data,'id')]
-    );
-  };
-}
-
-sub new_href {
-  my ($self) = @_;
-  return sub {
-    my ($pure, $dom, $data) = @_;
-    return $self->ctx->uri_for(
-      $self->ctx->controller('Root')->action_for('add'),
-    );
-  };
-}
-
-sub clear_completed_href {
-  my ($self) = @_;
-  return sub {
-    my ($pure, $dom, $data) = @_;
-    return $self->ctx->uri_for(
-      $self->ctx->controller('Root')->action_for('clear_completed')
-    );
-  };
-}
 
 sub sets_href {
   my ($self) = @_;
@@ -65,15 +24,15 @@ __PACKAGE__->config(
   returns_status => [HTTP_OK],
   auto_template_src => 1,
   directives => [
-    'form#new_task@action' => 'new_href',
-    'form#clear_completed@action' => 'clear_completed_href',
+    'form#new_task@action' => Uri('Root.add'),
+    'form#clear_completed@action' => Uri('Root.clear_completed'),
     'ul.todo-list li' => {
       '.<-tasks' => [
         '.@class' => 'completed | cond("completed", undef)',
-        '.destroy@formaction' => '/delete_href', 
+        '.destroy@formaction' => Uri('Task.delete',['={id}']).
         '.@id+' => 'id',
         'label@data-task' => 'id',
-        'form@action' => '/update_href',
+        'form@action' => Uri('Tasks.update','={id}'),
         'label' => 'title',
         'input[name="title"]@value' => 'title',
         'input[name="completed"]@checked' => 'completed | cond("on",undef)',
@@ -81,10 +40,10 @@ __PACKAGE__->config(
     },
     '.todo-count strong' => 'tasks.active.count',
     '.filters' => [
-      'a#={set}@class' => '"selected"',
-      '#all@href' => 'sets_href.all',
-      '#active@href' => 'sets_href.active',
-      '#completed@href' => 'sets_href.completed',
+      '#={set}@class' => '"selected"',
+      '#all@href' => Uri('Root.view',{q=>'all'}),
+      '#active@href' => Uri('Root.view',{q=>'active'}),
+      '#completed@href' => Uri('Root.view',{q=>'completed'}),
     ],
   ],
 );

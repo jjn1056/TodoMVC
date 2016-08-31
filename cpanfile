@@ -8,7 +8,7 @@ requires 'Catalyst::Plugin::CurrentComponents', '0.004';
 requires 'Catalyst::Plugin::RedirectTo', '0.001';
 requires 'Catalyst::Plugin::URI', '0.002';
 requires 'Catalyst::TraitFor::Model::DBIC::Schema::Result', '0.005';
-requires 'Catalyst::View::Template::Pure', '0.005';
+requires 'Catalyst::View::Template::Pure', '0.006';
 requires 'DBIx::Class', '0.082821';
 requires 'DBIx::Class::Helpers', '2.031000';
 requires 'DBIx::Class::Schema::Loader', '0.07045';
