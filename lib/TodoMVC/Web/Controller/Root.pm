@@ -11,20 +11,17 @@ sub root :Chained(/) PathPart('') CaptureArgs(0) {  }
 
   sub summary :Chained(root) PathPart('') CaptureArgs(0) {
     my ($self, $c) = @_;
-    my ($model, $set) = ($c->model, "all");
-    if(my $q = $c->req->query_parameters->{q}) {
-      if($q eq 'completed') {
-        $model = $model->completed;
-        $set = $q;
-      } elsif($q eq 'active') {
-        $model = $model->active;
-        $set = $q;
-      } 
-    }
-    $c->view('Summary', tasks => $model, set => $set);
+    my $model = $c->model;
+    my $q = $c->req->query_parameters->{q} || 'all';
+    if($q eq 'completed') {
+      $model = $model->completed;
+    } elsif($q eq 'active') {
+      $model = $model->active;
+    } 
+    $c->view('Summary', tasks => $model, set => $q);
   }
     
-    sub view :GET Chained('summary') PathPart('') Args(0) Tag(view_todos) {
+    sub view :GET Chained('summary') PathPart('') Args(0) {
       my ($self, $c) = @_;
       $c->view('Summary')->http_ok;
     }

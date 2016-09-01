@@ -9,18 +9,7 @@ extends 'Catalyst::View::Template::Pure';
 has 'set' => (is=>'ro', required=>1);
 has 'tasks' => (is=>'ro', required=>1);
 
-sub sets_href {
-  my ($self) = @_;
-  my $base_uri = $self->ctx->uri_for(
-    $self->ctx->controller('Root')->action_for('view'));
-  return + {
-    all => do { my $u = $base_uri->clone; $u->query_param(q=>'all'); $u },
-    active => do { my $u = $base_uri->clone; $u->query_param(q=>'active'); $u },
-    completed => do { my $u = $base_uri->clone; $u->query_param(q=>'completed'); $u },
-  };
-}
-
-__PACKAGE__->config(
+_PACKAGE__->config(
   returns_status => [HTTP_OK],
   auto_template_src => 1,
   directives => [
