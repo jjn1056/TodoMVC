@@ -29,10 +29,10 @@ __PACKAGE__->config(
     'ul.todo-list li' => {
       '.<-tasks' => [
         '.@class' => 'completed | cond("completed", undef)',
-        '.destroy@formaction' => Uri('Task.delete',['={id}']).
+        '.destroy@formaction' => Uri('Task.delete',['={id}']),
         '.@id+' => 'id',
         'label@data-task' => 'id',
-        'form@action' => Uri('Tasks.update','={id}'),
+        'form@action' => Uri('Task.update',['={id}']),
         'label' => 'title',
         'input[name="title"]@value' => 'title',
         'input[name="completed"]@checked' => 'completed | cond("on",undef)',
