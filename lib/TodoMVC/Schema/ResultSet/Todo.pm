@@ -17,7 +17,7 @@ sub completed {
 
 =head1 NAME
 
-RangersCCG::Schema::Result::Todo - The list of things undo 
+TodoMVC::Schema::ResultSet::Todo - The list of things undo 
 
 =head1 DESCRIPTION
 
@@ -33,10 +33,10 @@ This class defines the following methods
 
 =head1 AUTHORS & COPYRIGHT
 
-See L<RangersCCG>.
+See L<TodoMVC>.
 
 =head1 LICENSE
 
-See L<RangersCCG>.
+See L<TodoMVC>.
 
 =cut

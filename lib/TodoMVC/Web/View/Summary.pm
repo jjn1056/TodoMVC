@@ -9,23 +9,14 @@ extends 'Catalyst::View::Template::Pure';
 has 'set' => (is=>'ro', required=>1);
 has 'tasks' => (is=>'ro', required=>1);
 
-_PACKAGE__->config(
+__PACKAGE__->config(
   returns_status => [HTTP_OK],
   auto_template_src => 1,
   directives => [
     'form#new_task@action' => Uri('Root.add'),
     'form#clear_completed@action' => Uri('Root.clear_completed'),
     'ul.todo-list li' => {
-      '.<-tasks' => [
-        '.@class' => 'completed | cond("completed", undef)',
-        '.destroy@formaction' => Uri('Task.delete',['={id}']),
-        '.@id+' => 'id',
-        'label@data-task' => 'id',
-        'form@action' => Uri('Task.update',['={id}']),
-        'label' => 'title',
-        'input[name="title"]@value' => 'title',
-        'input[name="completed"]@checked' => 'completed | cond("on",undef)',
-      ],
+      '.<-tasks' => Apply('Summary::Task'),
     },
     '.todo-count strong' => 'tasks.active.count',
     '.filters' => [

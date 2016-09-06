@@ -75,10 +75,3 @@ setup:: buildperl locallib buildexec installdevelop generatelocalconfig
 
 server::
 	$(LOCALEXEC) perl -Ilib lib/TodoMVC/Web/Server.pm --server Gazelle 
-
-db_sandbox::
-	$(LOCALEXEC) perl -Ilib -MTodoMVC -e 'TodoMVC->make_sandbox'
-
-db_prepare::
-	$(LOCALEXEC) perl -Ilib -MTodoMVC::Web -e 'Vota::Web->model("Migration")->prepare'
-

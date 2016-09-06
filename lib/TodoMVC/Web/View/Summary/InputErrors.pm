@@ -15,7 +15,7 @@ __PACKAGE__->config(
         '.' => sub {
            my ($t, $dom, $data) = @_;
            return $t->encoded_string(
-              '<span style="background-color:#fff0f0; width=100%;">'. 
+              '<span style="background-color:#fff0f0; width=100%">'. 
               $t->data_at_path($data, 'err') .
               '</span>');
         },
