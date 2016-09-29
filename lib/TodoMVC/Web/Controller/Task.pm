@@ -4,26 +4,24 @@ use Moose;
 use MooseX::MethodAttributes;
 
 extends 'Catalyst::Controller';
+with 'Catalyst::ControllerRole::At';
 
-sub root :Chained(/root) PathPart('task') CaptureArgs(1) {
-  my ($self, $c, $id) = @_;
-  my $model = $c->model("Schema::Todo")->find($id) ||
-    $c->view('NotFound')->http_not_found->detach;
-  $c->current_model_instance($model);
+sub root : Via(/root) At($affix/{id}/...) {
+  my $model = $_->model("Schema::Todo")->find($_{id}) ||
+    $_->view('NotFound')->http_not_found->detach;
+  $_->current_model_instance($model);
 }
 
-  sub update :POST Chained(root) PathPart('') Args(0) {
-    my ($self, $c) = @_;
-    my $form = $c->model('Form::Task', $c->model);
+  sub update : POST Via(root) At(/) {
+    my $form = $_->model('Form::Task', $_->model);
     $form->is_valid ?
-      $c->redirect_to($c->controller('Root')->action_for('view')) :
-      $c->view('BadRequest');
+      $_->redirect_to($_->controller('Root')->action_for('view')) :
+      $_->view('BadRequest');
   }
 
-  sub delete :POST Chained(root)  Args(0) {
-    my ($self, $c) = @_;
-    $c->model->delete;
-    $c->redirect_to($c->controller('Root')->action_for('view'));
+  sub delete : POST Via(root) At($name) {
+    $_->model->delete;
+    $_->redirect_to($_->controller('Root')->action_for('view'));
   }
 
 __PACKAGE__->meta->make_immutable;

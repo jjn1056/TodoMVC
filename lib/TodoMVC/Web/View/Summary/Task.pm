@@ -12,9 +12,9 @@ has 'completed' => (is=>'ro', required=>1);
 
 __PACKAGE__->config(
   directives => [
-    '.@class' => 'completed | cond("completed", undef)',
+    'li@class' => 'completed | cond("completed", undef)',
+    'li@id+' => 'id',
     '.destroy@formaction' => Uri('Task.delete',['={id}']),
-    '.@id+' => 'id',
     'label@data-task' => 'id',
     'form@action' => Uri('Task.update',['={id}']),
     'label' => 'title',
