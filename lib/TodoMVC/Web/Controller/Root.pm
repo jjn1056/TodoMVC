@@ -8,22 +8,21 @@ with 'Catalyst::ControllerRole::At';
 
 sub root : At(/...) {  }
 
-  sub summary : Via(root) At(/...) {
+  sub summary : Via(root) At(...?{q=all}) {
     my $model = $_->model;
-    my $q = $_{q} || 'all';
-    if($q eq 'completed') {
+    if($_{q} eq 'completed') {
       $model = $model->completed;
-    } elsif($q eq 'active') {
+    } elsif($_{q} eq 'active') {
       $model = $model->active;
     } 
-    $_->view('Summary', tasks => $model, set => $q);
+    $_->view('Summary', tasks => $model, set => $_{q});
   }
     
-    sub view : GET Via(summary) At(/) {
+    sub view : GET Via(summary) At() {
       $_->view('Summary')->http_ok;
     }
 
-    sub add : POST Via(summary) At(/) {
+    sub add : POST Via(summary) At() {
       my $form = $_->model('Form::Task',
         $_->model->new_result(+{}));
       $form->is_valid ?
@@ -32,7 +31,7 @@ sub root : At(/...) {  }
           ->http_bad_request;
     }
 
-  sub clear_completed : POST Via(root) At($name) {
+  sub clear_completed : POST Via(root) At(clear_completed) {
     $_->model->completed->delete_all;
     $_->redirect_to($_[0]->action_for('view'));
   }
