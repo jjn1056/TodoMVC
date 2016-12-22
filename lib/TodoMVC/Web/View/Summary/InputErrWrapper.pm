@@ -16,7 +16,7 @@ __PACKAGE__->config(
   </div>],
   directives => [
     '+div' => 'content',
-    'div span+' => {
+    'div span' => {
       'err<-errs' => 'err',
     }
   ],
