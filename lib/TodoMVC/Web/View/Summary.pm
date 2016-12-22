@@ -3,7 +3,6 @@ package  TodoMVC::Web::View::Summary;
 use Moose;
 use HTTP::Status qw(:constants);
 use Catalyst::View::Template::Pure::Helpers (':All');
-use Template::Pure;
 
 extends 'Catalyst::View::Template::Pure';
 

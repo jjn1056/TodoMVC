@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<?pure-overlay src='Views.Master' 
+  title=\'title'
+  body=\'body'?>
+<html lang="en">
+<head>
+  <title>Catalyst TodoMVC</title>
+</head>
+<body>
+  <section class="todoapp">
+    <header class="header">
+      <h1>Edit Task</h1>
+      <form id="edit_task" method="POST">
+        <input name="title" autofocus="" class="new-todo" placeholder="What needs to be done?">
+      </form>
+    </header>
+    <!-- This section should be hidden by default and shown when there are todos -->
+  </section>
+  <footer class="info">
+    <p>Click to edit a todo</p><!-- Remove the below line ↓ -->
+    <p>Template by <a href="http://sindresorhus.com">Sindre Sorhus</a></p>
+    <!-- Change this out with your name and url ↓ -->
+    <p>Created by <a href="http://todomvc.com">you</a></p>
+    <p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
+  </footer>
+</body>
+</html>

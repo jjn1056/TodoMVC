@@ -17,6 +17,7 @@ __PACKAGE__->config(
     '.destroy@formaction' => Uri('/task/delete',['={id}']),
     'label@data-task' => 'id',
     'form@action' => Uri('/task/update',['={id}']),
+    'form@id+' => 'id',
     'label' => 'title',
     'input[name="title"]@value' => 'title',
     'input[name="completed"]@checked' => 'completed | cond("on",undef)',

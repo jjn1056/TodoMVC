@@ -15,7 +15,8 @@ sub root : Via(/root) At(task/{id}/...) {
     my $form = $_->model('Form::Task', $_->model);
     $form->is_valid ?
       $_->redirect_to($_[0]->action_for('../summary/view')) :
-      $_->view('BadRequest');
+      $_->view('Task', $form)
+        ->http_bad_request;
   }
 
   sub delete : POST Via(root) At(delete) {
