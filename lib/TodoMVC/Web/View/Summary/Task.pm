@@ -14,9 +14,9 @@ __PACKAGE__->config(
   directives => [
     'li@class' => 'completed | cond("completed", undef)',
     'li@id+' => 'id',
-    '.destroy@formaction' => Uri('Task.delete',['={id}']),
+    '.destroy@formaction' => Uri('/task/delete',['={id}']),
     'label@data-task' => 'id',
-    'form@action' => Uri('Task.update',['={id}']),
+    'form@action' => Uri('/task/update',['={id}']),
     'label' => 'title',
     'input[name="title"]@value' => 'title',
     'input[name="completed"]@checked' => 'completed | cond("on",undef)',

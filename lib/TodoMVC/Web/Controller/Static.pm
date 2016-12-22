@@ -1,10 +1,6 @@
 package TodoMVC::Web::Controller::Static;
 
 use Moose;
-use MooseX::MethodAttributes;
-
-extends 'Catalyst::Controller';
-
-sub static : Chained(/root) Args Does(Public) At(/:actionname/*) {  }
+extends 'Catalyst::Controller::Public';
 
 __PACKAGE__->meta->make_immutable;

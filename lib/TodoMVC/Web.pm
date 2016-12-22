@@ -14,9 +14,13 @@ __PACKAGE__->inject_components(
 __PACKAGE__->config(
   'root' => __PACKAGE__->path_to('share'),
   'default_model' => 'Schema::Todo',
+  'Plugin::CurrentComponents' => {
+    model_instance_from_return => 1,
+    view_instance_from_return => 1,
+   },
   'Controller::Root' => { namespace => '' },
   'Model::Schema' => {
-    traits => ['Result', 'SchemaProxy', 'FromMigration'],
+    traits => ['SchemaProxy', 'FromMigration'],
     schema_class => 'TodoMVC::Schema', 
   });
 

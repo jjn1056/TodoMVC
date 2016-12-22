@@ -6,11 +6,17 @@ package TodoMVC::Schema::ResultSet::Todo;
 use base 'TodoMVC::Schema::ResultSet';
 
 sub active {
-  return $_[0]->search({$_[0]->me('completed') => 0});
+  return $_[0]->search_rs({$_[0]->me('completed') => 0});
 }
 
 sub completed {
-  return $_[0]->search({$_[0]->me('completed') => 1});
+  return $_[0]->search_rs({$_[0]->me('completed') => 1});
+}
+
+sub filter_by {
+  my ($self, $set) = @_;
+  return $self unless $set;
+  return $self->can($set) ? $self->$set : $self;
 }
 
 1;
