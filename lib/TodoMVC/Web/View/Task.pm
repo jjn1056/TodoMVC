@@ -6,7 +6,7 @@ use Catalyst::View::Template::Pure::Helpers (':All');
 
 extends 'Catalyst::View::Template::Pure';
 
-has 'fif' => (is=>'ro', required=>1);
+has 'title' => (is=>'ro', required=>1);
 has 'errors_by_name' => (is=>'ro', required=>1);
 
 __PACKAGE__->config(
@@ -14,7 +14,7 @@ __PACKAGE__->config(
   auto_template_src => 1,
   directives => [
     '^input[name="title"]' => [
-      '.@value' => 'fif.title',
+      '.@value' => 'title',
       '^.' => {
         'errs<-errors_by_name' => Wrap('Summary::InputErrWrapper'),
       },
