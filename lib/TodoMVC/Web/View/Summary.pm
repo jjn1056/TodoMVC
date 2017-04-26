@@ -8,7 +8,7 @@ with 'Template::Lace::ModelRole',
   'Catalyst::View::Template::Lace::Role::URI';
 
 has 'set' => (is=>'ro', required=>0);
-has 'tasks' => (is=>'ro', required=>1);
+has 'tasks' => (is=>'ro', required=>1); 
   
 sub process_dom {
   my ($self, $dom) = @_;
