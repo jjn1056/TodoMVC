@@ -1,25 +1,24 @@
 package  TodoMVC::Web::View::Task;
  
-use Moose;
-use HTTP::Status qw(:constants);
-use Catalyst::View::Template::Pure::Helpers (':All');
-
-extends 'Catalyst::View::Template::Pure';
+use Moo;
+extends 'Catalyst::View::Template::Lace';
+with 'Template::Lace::ModelRole',
+  'Template::Lace::Model::AutoTemplate';
 
 has 'title' => (is=>'ro', required=>1);
 has 'errors_by_name' => (is=>'ro', required=>1);
 
-__PACKAGE__->config(
-  returns_status => [HTTP_OK, HTTP_BAD_REQUEST],
-  auto_template_src => 1,
-  directives => [
-    '^input[name="title"]' => [
-      '.@value' => 'title',
-      '^.' => {
-        'errs<-errors_by_name' => Wrap('Summary::InputErrWrapper'),
-      },
-    ],
-  ],
-);
+sub process_dom {
+  my ($self, $dom) = @_;
+  $dom->at('input[name="title"]')
+    ->attr('value', $self->title)
+    ->root
+    ->at('.input_with_errors span')
+    ->repeat(sub {
+      my ($dom, $item, $idx) = @_;
+      $dom->content($item);
+    }, @{$self->errors_by_name->{title}});
+}
 
-__PACKAGE__->meta->make_immutable;
+1;
+

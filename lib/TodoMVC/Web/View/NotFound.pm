@@ -1,16 +1,13 @@
 package  TodoMVC::Web::View::NotFound;
  
-use Moose;
-use HTTP::Status qw(:constants);
- 
-extends 'Catalyst::View::Template::Pure';
- 
-__PACKAGE__->config(
-  returns_status => [HTTP_NOT_FOUND],
-  template => q[
-    <?pure-overlay src='Views.Master' 
-      title=\'title'
-      body=\'body'?>
+use Moo;
+extends 'Catalyst::View::Template::Lace';
+with 'Template::Lace::ModelRole';
+
+sub template {q{
+  <view-master
+      title=\'title:content'
+      body=\'body:content'>
     <html lang="en">
       <head>
         <title>Not Found</title>
@@ -23,9 +20,7 @@ __PACKAGE__->config(
         </section>
       </body>
     </html>
-  ],
-  directives => [
-  ],
-);
- 
-__PACKAGE__->meta->make_immutable
+  </view-master>
+}}
+
+1;
