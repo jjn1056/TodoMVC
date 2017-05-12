@@ -1,6 +1,7 @@
 package  TodoMVC::Web::View::Summary;
  
 use Moo;
+use curry;
 use Template::Lace::Utils 'mk_component';
 extends 'Catalyst::View::Template::Lace';
 with 'Template::Lace::ModelRole',
@@ -14,13 +15,15 @@ sub active_task_count { shift->tasks->active->count }
  
 sub process_dom {
   my ($self, $dom) = @_;
-  $self->todos($dom->at('.todo-list li'));
-  $dom->at('#new_task')->action($self->uri('add'));
-  $dom->at('#clear_completed')->action($self->uri('clear_completed'));
-  $dom->at('#active-count')->content($self->active_task_count);
-  $dom->at('#active')->href( $self->uri('summary',{q=>'active'}));
-  $dom->at('#completed')->href( $self->uri('summary',{q=>'completed'}));
-  $dom->at("#${\$self->set}")->class('selected');
+  $dom->do(
+    '.todo-list li' => $self->curry::todos,
+    '#new_task@action' => $self->uri('add'),
+    '#clear_completed@action' => $self->uri('clear_completed'),
+    '#active-count' => $self->active_task_count,
+    '#active@href' => $self->uri('summary',{q=>'active'}),
+    '#completed@href' => $self->uri('summary',{q=>'completed'}),
+    "#${\$self->set}\@class" => 'selected',
+  );
 }
 
 sub todos {
@@ -34,18 +37,21 @@ sub todo {
   my ($self, $dom, $item) = @_;
   $dom->id('task'.$item->todo_id)
     ->class($item->completed ? "completed": undef);
+    
+  $dom->at('form')
+    ->action($self->uri('/task/update', [$item->todo_id]))
+    ->id('form'.$item->todo_id);
   
   $dom->at('label')
     ->content($item->title)
     ->attr('data-task', $item->todo_id);
 
-  $dom->at('input[name="title"]')->attr('value', $item->title);
-  $dom->at('input[name="completed"]')->attr('checked', 'on') if $item->completed;
-  $dom->at('.destroy')->attr('formaction', $self->uri('/task/delete', [$item->todo_id]));
 
-  $dom->at('form')
-    ->action($self->uri('/task/update', [$item->todo_id]))
-    ->id('form'.$item->todo_id);
+  $dom->at('input[name="title"]')->attr('value',($item->title));
+  $dom->at('input[name="completed"]')->checked($item->completed);
+  $dom->at('button[name="destroy"]')->formaction($self->uri('/task/delete', [$item->todo_id]));
+
+
 }
 
 

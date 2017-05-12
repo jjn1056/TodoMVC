@@ -6,6 +6,7 @@ with 'Template::Lace::ModelRole',
   'Template::Lace::Model::AutoTemplate';
 
 has [qw/title body/] => (is=>'ro', required=>1);
+has scripts => (is=>'ro');
 
 sub template {q{
   <!DOCTYPE html>
@@ -26,7 +27,8 @@ sub template {q{
 sub on_component_add {
   my ($self, $dom) = @_;
   $dom->title($self->title)
-    ->body($self->body);
+    ->head(sub { $_->append_content($self->scripts->join) if $self->scripts })
+    ->body(sub { $_->content($self->body) });
 }
 
 1;

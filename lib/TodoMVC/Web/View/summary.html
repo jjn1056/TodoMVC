@@ -1,9 +1,16 @@
 <view-master
     title=\'title:content'
+    scripts=\'@script'
     body=\'body:content'>
   <html lang="en">
   <head>
     <title>Catalyst TodoMVC</title>
+    <script type='application/javascript'>
+      function setEditting(task) {
+        document.getElementById('task'+task)
+          .setAttribute('class','editing');      
+      } 
+    </script>
   </head>
   <body>
     <section class="todoapp">
@@ -13,21 +20,18 @@
           <input name="title" autofocus="" class="new-todo" placeholder="What needs to be done?">
         </form>
       </header>
-      <!-- This section should be hidden by default and shown when there are todos -->
       <section class="main">
-        <input class="toggle-all" type="checkbox"> <label for="toggle-all">Mark
-        all as complete</label>
         <ul class="todo-list">
-          <!-- These are here just to show the structure of the list items -->
-          <!-- List items should get the class `editing` when editing and `completed` when marked as completed -->
           <li id="task">
             <form id="form" method="POST" action='/task/'>
-            <div class="view">
-              <input class="toggle" name='completed' type="checkbox" onclick="this.form.submit()">
-              <label onblur="alert(1)" onclick="document.getElementById('task'+this.dataset.task).setAttribute('class','editing')">
-                Buy a unicorn</label>
-              <button class="destroy" formaction='/task/'></button>
-            </div><input  class="edit" name="title">
+              <div class="view">
+                <input class="toggle" name='completed' type="checkbox" onclick="this.form.submit()">
+                <label for='completed' onclick="setEditting(this.dataset.task)">
+                  Buy a unicorn
+                </label>
+                <button name='destroy' class="destroy" formaction='/task/'></button>
+              </div>
+              <input  class="edit" name="title">
             </form>
           </li>
         </ul>
@@ -53,11 +57,7 @@
     </section>
     
     <footer class="info">
-      <p>Click to edit a todo</p><!-- Remove the below line ↓ -->
-      <p>Template by <a href="http://sindresorhus.com">Sindre Sorhus</a></p>
-      <!-- Change this out with your name and url ↓ -->
-      <p>Created by <a href="http://todomvc.com">you</a></p>
-      <p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
+      <p>Click to edit a todo</p>
     </footer>
   </body>
   </html>

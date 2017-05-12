@@ -8,7 +8,7 @@ requires 'Catalyst::Plugin::CurrentComponents', '0.007';
 requires 'Catalyst::Plugin::RedirectTo', '0.001';
 requires 'Catalyst::Plugin::URI', '0.002';
 requires 'Catalyst::TraitFor::Model::DBIC::Schema::Result', '0.006';
-requires 'Catalyst::View::Template::Lace', '0.001';
+requires 'Catalyst::View::Template::Lace', '0.002';
 requires 'Catalyst::ControllerRole::At', '0.005';
 requires 'Catalyst::Controller::Public', '0.003';
 requires 'DBIx::Class', '0.082840';
@@ -21,6 +21,7 @@ requires 'DBD::SQLite', '1.54';
 requires 'Plack', '1.0043';
 requires 'Type::Tiny', '1.000006';
 requires 'Gazelle', '0.46';
+requires 'curry', '1.000000';
 
 on test => sub {
   requires 'Catalyst::Test';
