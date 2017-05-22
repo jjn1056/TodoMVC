@@ -2,8 +2,7 @@ package  TodoMVC::Web::View::Task;
  
 use Moo;
 extends 'Catalyst::View::Template::Lace';
-with 'Template::Lace::ModelRole',
-  'Template::Lace::Model::AutoTemplate';
+with 'Template::Lace::Model::AutoTemplate';
 
 has 'title' => (is=>'ro', required=>1);
 has 'errors_by_name' => (is=>'ro', required=>1);

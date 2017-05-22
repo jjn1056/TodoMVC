@@ -2,8 +2,7 @@ package  TodoMVC::Web::View::Master;
 
 use Moo;
 extends 'Catalyst::View::Template::Lace';
-with 'Template::Lace::ModelRole',
-  'Template::Lace::Model::AutoTemplate';
+with 'Template::Lace::Model::AutoTemplate';
 
 has [qw/title body/] => (is=>'ro', required=>1);
 has scripts => (is=>'ro');

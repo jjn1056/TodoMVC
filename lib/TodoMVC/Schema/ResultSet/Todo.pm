@@ -16,6 +16,7 @@ sub completed {
 sub filter_by {
   my ($self, $set) = @_;
   return $self unless $set;
+  return $self->search_rs if $set eq 'all';
   return $self->can($set) ? $self->$set : $self;
 }
 

@@ -16,8 +16,7 @@ sub root : At(/...) {  }
   }
 
   sub add : POST Via(root) At() {
-    my $form = $_->model('Form::Task',
-      $_->model->new_result(+{}));
+    my $form = $_->model('Form::Task', $_->model->empty);
     $form->is_valid ?
       $_->detach('summary') :
       $_->view('Task',

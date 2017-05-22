@@ -2,7 +2,6 @@ package  TodoMVC::Web::View::NotFound;
  
 use Moo;
 extends 'Catalyst::View::Template::Lace';
-with 'Template::Lace::ModelRole';
 
 sub template {q{
   <view-master

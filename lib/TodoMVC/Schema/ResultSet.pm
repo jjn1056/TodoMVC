@@ -12,4 +12,6 @@ __PACKAGE__->load_components(qw/
   ResultSet::CallbackInflator
 /);
 
+sub empty { shift->new_resultset(+{}) }
+
 1;
