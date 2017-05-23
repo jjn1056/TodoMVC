@@ -2,7 +2,6 @@ package  TodoMVC::Web::View::Summary;
  
 use Moo;
 use curry;
-use Template::Lace::Utils 'mk_component';
 extends 'Catalyst::View::Template::Lace';
 with 'Template::Lace::Model::AutoTemplate',
   'Catalyst::View::Template::Lace::Role::URI';
@@ -23,13 +22,6 @@ sub process_dom {
   );
 }
 
-sub filter_links {
-  my ($self, $set, $dom) = @_;
-  my $id = $dom->attr('id');
-  $dom->href( $self->uri('summary',{q=>$id}) )
-   ->class({selected => $id eq $set});
-}
-
 sub todos {
   my ($self, $tasks, $dom) = @_;
   $dom->repeat($self->curry::todo, $tasks->all)
@@ -47,6 +39,13 @@ sub todo {
     'input[name="completed"]' => sub { $_->checked($item->completed) },
     'button[name="destroy"]@formaction' => $self->uri('/task/delete', [$item->todo_id]),
   );
+}
+
+sub filter_links {
+  my ($self, $set, $dom) = @_;
+  my $id = $dom->attr('id');
+  $dom->href( $self->uri('summary',{q=>$id}) )
+   ->class({selected => $id eq $set});
 }
 
 1;
