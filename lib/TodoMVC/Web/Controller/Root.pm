@@ -27,7 +27,7 @@ sub root : At(/...) {  }
 
   sub clear_completed : POST Via(root) At(clear_completed) {
     $_->model->completed->delete_all;
-    $_->redirect_to($_[0]->action_for('view'));
+    $_->redirect_to_action('summary');
   }
 
 sub default :Default {

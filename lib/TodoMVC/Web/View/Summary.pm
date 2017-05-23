@@ -32,9 +32,7 @@ sub filter_links {
 
 sub todos {
   my ($self, $tasks, $dom) = @_;
-  $dom->repeat(sub {
-    $self->todo(@_);
-  }, $tasks->all);
+  $dom->repeat($self->curry::todo, $tasks->all)
 }
 
 sub todo {
