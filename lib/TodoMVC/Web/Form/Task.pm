@@ -1,8 +1,8 @@
 package TodoMVC::Web::Form::Task;
 
-use HTML::FormHandler::Moose;
-
-extends 'HTML::FormHandler';
+use Moo;
+use Data::MuForm::Meta;
+extends 'Data::MuForm';
 
 has_field 'completed' => (
   type => 'Checkbox',
@@ -17,12 +17,12 @@ has_field 'title' => (
 sub update_model {
   my $self = shift;
   my %values = %{$self->values};
-  for($self->item) {
+  for($self->model) {
     $_->title($values{title});
     $_->completed($values{completed} ? 1 : 0);
     $_->insert_or_update;
   }
 }
 
-__PACKAGE__->meta->make_immutable;
+1;
 

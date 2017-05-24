@@ -14,7 +14,7 @@ sub root : Via(/root) At(task/{id}/...) {
 
   sub update : POST Via(root) At() {
     my $form = $_->model('Form::Task', $_->model);
-    $form->is_valid ?
+    $form->validated?
       $_->redirect_to_action('../summary') :
       $_->view('Task',
         title => $form->fif->{title},

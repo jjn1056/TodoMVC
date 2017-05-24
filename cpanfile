@@ -22,6 +22,7 @@ requires 'Plack', '1.0043';
 requires 'Type::Tiny', '1.000006';
 requires 'Gazelle', '0.46';
 requires 'curry', '1.000000';
+requires 'Data::MuForm';
 
 on test => sub {
   requires 'Catalyst::Test';
@@ -35,4 +36,9 @@ on develop => sub {
   requires 'Devel::Confess', '0.009004';
   requires 'Devel::Dwarn';
   requires 'App::cpanoutdated';
+  requires 'Catalyst::TraitFor::Model::DBIC::Schema::QueryLog';
+  requires 'cpanm Catalyst::TraitFor::Model::DBIC::Schema::QueryLog::AdoptPlack';
+  requires 'Plack::Middleware::Debug';
+  requires 'Plack::Middleware::Debug::DBIC::QueryLog';
+
 };

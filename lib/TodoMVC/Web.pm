@@ -8,16 +8,25 @@ use Catalyst qw/
 /;
 
 __PACKAGE__->inject_components(
-  'Model::Form' => { from_component => 'Catalyst::Model::HTMLFormhandler' },
+  #'Model::Form' => { from_component => 'Catalyst::Model::HTMLFormhandler' },
   'Model::Schema' => { from_component => 'Catalyst::Model::DBIC::Schema'});
+
+warn __PACKAGE__->debug;
 
 __PACKAGE__->config(
   'root' => __PACKAGE__->path_to('share'),
+  'psgi_middleware', [
+    'Debug' => +{
+      panels => [qw(DBIC::QueryLog Environment Response Timer Memory Session)],
+    },
+  ],
   'default_model' => 'Schema::Todo',
   'Controller::Root' => { namespace => '' },
+  'Model::Form::Task' => { form_class=>'TodoMVC::Web::Form::Task' },
   'Model::Schema' => {
-    traits => ['SchemaProxy', 'FromMigration'],
-    schema_class => 'TodoMVC::Schema', 
+    traits => ['SchemaProxy', 'FromMigration', 'QueryLog::AdoptPlack'],
+    schema_class => 'TodoMVC::Schema',
+    querylog_args => { passthrough => 1 },
   });
 
 __PACKAGE__->setup;

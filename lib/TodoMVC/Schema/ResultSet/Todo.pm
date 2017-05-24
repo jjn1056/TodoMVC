@@ -5,6 +5,8 @@ package TodoMVC::Schema::ResultSet::Todo;
 
 use base 'TodoMVC::Schema::ResultSet';
 
+sub new_todo { return $_[0]->new_result(+{}) }
+
 sub active {
   return $_[0]->search_rs({$_[0]->me('completed') => 0});
 }
@@ -14,10 +16,10 @@ sub completed {
 }
 
 sub filter_by {
-  my ($self, $set) = @_;
-  return $self unless $set;
-  return $self->search_rs if $set eq 'all';
-  return $self->can($set) ? $self->$set : $self;
+  my ($self, $q) = @_;
+  return $self if $q eq 'all';
+  return $self->active if $q eq 'active';
+  return $self->completed if $q eq 'completed';
 }
 
 1;

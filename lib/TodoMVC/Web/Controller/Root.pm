@@ -8,16 +8,17 @@ with 'Catalyst::ControllerRole::At';
 
 sub root : At(/...) {  }
 
-  sub summary :Via(root) At(?{?q}) {
+  sub summary :Via(root) At(?{q=all}) {
     $_->view('Summary',
-      set => $_{q}||'all',
-      tasks => $_->model->filter_by($_{q}))
-    ->http_ok;
+      set => $_{q},
+      tasks => $_->model->filter_by($_{q}),
+    )->http_ok;
   }
 
   sub add : POST Via(root) At() {
-    my $form = $_->model('Form::Task', $_->model->empty);
-    $form->is_valid ?
+    my $form = $_->model('Form::Task',
+      $_->model->new_todo);
+    $form->validated ?
       $_->detach('summary') :
       $_->view('Task',
         title => $form->fif->{title},
