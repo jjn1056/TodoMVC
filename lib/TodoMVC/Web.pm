@@ -8,10 +8,8 @@ use Catalyst qw/
 /;
 
 __PACKAGE__->inject_components(
-  #'Model::Form' => { from_component => 'Catalyst::Model::HTMLFormhandler' },
+  'Model::Form' => { from_component => 'Catalyst::Model::Data::MuForm' },
   'Model::Schema' => { from_component => 'Catalyst::Model::DBIC::Schema'});
-
-warn __PACKAGE__->debug;
 
 __PACKAGE__->config(
   'root' => __PACKAGE__->path_to('share'),
