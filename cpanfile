@@ -2,7 +2,7 @@ requires 'Catalyst', '5.90114';
 requires 'Catalyst::ActionRole::Public', '0.009';
 requires 'Catalyst::ActionSignatures', '0.010';
 requires 'Catalyst::Model::DBIC::Schema', '0.65';
-requires 'Catalyst::Model::HTMLFormhandler', '0.009';
+requires 'Catalyst::Model::Data::MuForm', '0.001';
 requires 'Catalyst::Plugin::ConfigLoader', '0.34';
 requires 'Catalyst::Plugin::CurrentComponents', '0.007';
 requires 'Catalyst::Plugin::RedirectTo', '0.002';
@@ -23,6 +23,8 @@ requires 'Type::Tiny', '1.000006';
 requires 'Gazelle', '0.46';
 requires 'curry', '1.000000';
 requires 'Data::MuForm';
+requires 'Import::Into';
+requires 'Module::Runtime'
 
 on test => sub {
   requires 'Catalyst::Test';

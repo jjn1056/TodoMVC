@@ -1,10 +1,6 @@
 package TodoMVC::Web::Controller::Root;
 
-use Moose;
-use MooseX::MethodAttributes;
-
-extends 'Catalyst::Controller';
-with 'Catalyst::ControllerRole::At';
+use TodoMVC::Web::Controller;
 
 sub root : At(/...) {  }
 

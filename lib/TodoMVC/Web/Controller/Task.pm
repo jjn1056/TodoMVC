@@ -1,10 +1,6 @@
 package TodoMVC::Web::Controller::Task;
 
-use Moose;
-use MooseX::MethodAttributes;
-
-extends 'Catalyst::Controller';
-with 'Catalyst::ControllerRole::At';
+use TodoMVC::Web::Controller;
 
 sub root : Via(/root) At(task/{id}/...) {
   my $model = $_->model->find($_{id}) ||
