@@ -4,7 +4,11 @@ use TodoMVC::Web::Controller;
 
 sub root : At(/...) {  }
 
-  sub summary :Via(root) At(?{q=all}) {
+  sub catchall : Via(root) At({*}) {
+    $_->view('NotFound')->http_404;  
+  }
+
+  sub summary : Via(root) At(?{q=all}) {
     $_->view('Summary',
       set => $_{q},
       tasks => $_->model->filter_by($_{q}),
@@ -26,10 +30,5 @@ sub root : At(/...) {  }
     $_->model->completed->delete_all;
     $_->redirect_to_action('summary');
   }
-
-sub default :Default {
-  my ($self, $c, @args) = @_;
-  $c->view('NotFound')->http_404;
-}
 
 __PACKAGE__->meta->make_immutable;
