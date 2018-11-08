@@ -11,7 +11,7 @@ sub root : Via(/root) At(task/{id}/...) {
   sub update : POST Via(root) At() {
     my $form = $_->model('Form::Task', $_->model);
     $form->validated?
-      $_->redirect_to_action('../summary') :
+      $_->redirect_to_action('#summary') :
       $_->view('Task',
         title => $form->fif->{title},
         errors_by_name => $form->errors_by_name,
@@ -20,7 +20,7 @@ sub root : Via(/root) At(task/{id}/...) {
 
   sub delete : POST Via(root) At(delete) {
     $_->model->delete;
-    $_->redirect_to_action('../summary');
+    $_->redirect_to_action('#summary');
   }
 
 __PACKAGE__->meta->make_immutable;

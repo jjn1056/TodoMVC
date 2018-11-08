@@ -8,7 +8,7 @@ sub root : At(/...) {  }
     $_->view('NotFound')->http_404;  
   }
 
-  sub summary : Via(root) At(?{q=all}) {
+  sub summary : Via(root) At(?{q=all}) Name(summary) {
     $_->view('Summary',
       set => $_{q},
       tasks => $_->model->filter_by($_{q}),
@@ -28,7 +28,7 @@ sub root : At(/...) {  }
 
   sub clear_completed : POST Via(root) At(clear_completed) {
     $_->model->completed->delete_all;
-    $_->redirect_to_action('summary');
+    $_->redirect_to_action('#summary', +{q=>'all'});
   }
 
 __PACKAGE__->meta->make_immutable;

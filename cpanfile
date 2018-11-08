@@ -5,12 +5,12 @@ requires 'Catalyst::Model::DBIC::Schema', '0.65';
 requires 'Catalyst::Model::Data::MuForm', '0.001';
 requires 'Catalyst::Plugin::ConfigLoader', '0.34';
 requires 'Catalyst::Plugin::CurrentComponents', '0.007';
-requires 'Catalyst::Plugin::RedirectTo', '0.002';
-requires 'Catalyst::Plugin::URI', '0.002';
+requires 'Catalyst::Plugin::RedirectTo', '0.003';
+requires 'Catalyst::Plugin::URI', '0.003';
 requires 'Catalyst::TraitFor::Model::DBIC::Schema::Result', '0.006';
-requires 'Catalyst::View::Template::Lace', '0.003';
+requires 'Catalyst::View::Template::Lace', '0.011';
 requires 'Catalyst::ControllerRole::At', '0.005';
-requires 'Catalyst::Controller::Public', '0.003';
+requires 'Catalyst::Controller::Public', '0.004';
 requires 'DBIx::Class', '0.082840';
 requires 'DBIx::Class::Helpers', '2.033003';
 requires 'DBIx::Class::Schema::Loader', '0.07046';
@@ -24,7 +24,7 @@ requires 'Gazelle', '0.46';
 requires 'curry', '1.000000';
 requires 'Data::MuForm';
 requires 'Import::Into';
-requires 'Module::Runtime'
+requires 'Module::Runtime';
 
 on test => sub {
   requires 'Catalyst::Test';
