@@ -1,21 +1,22 @@
+Vagrant.configure("2") do |config|
+end
 
 Vagrant.configure(2) do |config|
-
-  # Shared configuration
-  config.vm.box = "jjn1056/perl-tictactoe"
-  config.vm.network "forwarded_port", guest:5000, host:5000
-  config.ssh.forward_agent = true
-
-  # Specific to the virtualbox provider
-  config.vm.provider "virtualbox" do |vb|
-    vb.memory = "2048"
-    vb.cpus = 4
+  config.vm.box = "bento/ubuntu-18.04"
+  config.vm.box_check_update = true
+  config.ssh.password = 'vagrant'
+  
+  config.vm.define "virtualbox", autostart: true do |vb_vm|
+    vb_vm.vm.provider :virtualbox do |v, override| 
+      override.vm.network "forwarded_port", guest: 5000, host: 5000
+    end
   end
-
-  # Provisioning info
-  config.vm.provision "shell", inline: <<-SHELL
-    cd /vagrant
-    sudo -E su vagrant -c 'make installdevelop'
+ 
+  config.vm.provision "shell", privileged: false, inline: <<-SHELL
+    sudo apt-get update
+    sudo apt-get --assume-yes install build-essential
+    sudo apt-get --assume-yes install curl
+    sudo apt-get --assume-yes install git
+    cd /vagrant &&  sudo -E su vagrant -c 'make setup LOCALDIR=/var'
   SHELL
-
 end
