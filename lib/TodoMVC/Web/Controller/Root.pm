@@ -26,9 +26,9 @@ sub root : At(/...) {  }
       )->http_bad_request;        
   }
 
-  sub clear_completed : POST Via(root) At(clear_completed) {
-    $_->model->completed->delete_all;
-    $_->redirect_to_action('#summary', +{q=>'all'});
+  sub clear_completed : POST Via(root) At(clear_completed) ($self, $c) {
+    $c->model->completed->delete_all;
+    $c->redirect_to_action('#summary', +{q=>'all'});
   }
 
 __PACKAGE__->meta->make_immutable;

@@ -9,7 +9,7 @@ requires 'Catalyst::Plugin::RedirectTo', '0.003';
 requires 'Catalyst::Plugin::URI', '0.003';
 requires 'Catalyst::TraitFor::Model::DBIC::Schema::Result', '0.006';
 requires 'Catalyst::View::Template::Lace', '0.011';
-requires 'Catalyst::ControllerRole::At', '0.005';
+requires 'Catalyst::ControllerRole::At', '0.006';
 requires 'Catalyst::Controller::Public', '0.004';
 requires 'DBIx::Class', '0.082840';
 requires 'DBIx::Class::Helpers', '2.033003';
@@ -25,6 +25,7 @@ requires 'curry', '1.000000';
 requires 'Data::MuForm';
 requires 'Import::Into';
 requires 'Module::Runtime';
+requires 'experimental', '0.020';
 
 on test => sub {
   requires 'Catalyst::Test';
@@ -38,9 +39,4 @@ on develop => sub {
   requires 'Devel::Confess', '0.009004';
   requires 'Devel::Dwarn';
   requires 'App::cpanoutdated';
-  requires 'Catalyst::TraitFor::Model::DBIC::Schema::QueryLog';
-  requires 'cpanm Catalyst::TraitFor::Model::DBIC::Schema::QueryLog::AdoptPlack';
-  requires 'Plack::Middleware::Debug';
-  requires 'Plack::Middleware::Debug::DBIC::QueryLog';
-
 };

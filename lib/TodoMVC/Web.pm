@@ -13,16 +13,11 @@ __PACKAGE__->inject_components(
 
 __PACKAGE__->config(
   'root' => __PACKAGE__->path_to('share'),
-  'psgi_middleware', [
-    'Debug' => +{
-      panels => [qw(DBIC::QueryLog Environment Response Timer Memory Session)],
-    },
-  ],
   'default_model' => 'Schema::Todo',
   'Controller::Root' => { namespace => '' },
   'Model::Form::Task' => { form_class=>'TodoMVC::Web::Form::Task' },
   'Model::Schema' => {
-    traits => ['SchemaProxy', 'FromMigration', 'QueryLog::AdoptPlack'],
+    traits => ['SchemaProxy', 'FromMigration'],
     schema_class => 'TodoMVC::Schema',
     querylog_args => { passthrough => 1 },
   });
